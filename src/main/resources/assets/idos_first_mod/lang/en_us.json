@@ -1,4 +1,7 @@
 {
   "item.idos_first_mod.first" : "The First Item",
-  "item.idos_first_mod.second" : "THE SECOND"
+  "item.idos_first_mod.second" : "THE SECOND",
+
+  "block.idos_first_mod.first_block": "La First A BLOCKA",
+  "block.idos_first_mod.second_block": "El Secando Le BLOCKO"
 }

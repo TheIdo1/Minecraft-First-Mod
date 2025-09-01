@@ -1,5 +1,6 @@
 package net.TheIdo1.idos_first_mod;
 
+import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
@@ -34,7 +35,9 @@ public class IdosFirstMod {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -53,6 +56,11 @@ public class IdosFirstMod {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS){
             event.accept(ModItems.FIRST);
             event.accept(ModItems.SECOND);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
+            event.accept(ModBlocks.FIRST_BLOCK);
+            event.accept(ModBlocks.SECOND_BLOCK);
         }
 
     }
