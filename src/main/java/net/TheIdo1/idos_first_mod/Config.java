@@ -1,4 +1,4 @@
-package net.TheIdo1.firstmod;
+package net.TheIdo1.idos_first_mod;
 
 import java.util.List;
 
