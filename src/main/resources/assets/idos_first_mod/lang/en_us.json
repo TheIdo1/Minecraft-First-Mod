@@ -3,5 +3,7 @@
   "item.idos_first_mod.second" : "THE SECOND",
 
   "block.idos_first_mod.first_block": "La First A BLOCKA",
-  "block.idos_first_mod.second_block": "El Secando Le BLOCKO"
+  "block.idos_first_mod.second_block": "El Secando Le BLOCKO",
+  "creativetab.idos_first_mod.first_items": "First Items",
+  "creativetab.idos_first_mod.first_blocks": "First Blocks"
 }
