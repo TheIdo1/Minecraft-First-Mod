@@ -31,6 +31,8 @@ public class ModCreativeModeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModBlocks.FIRST_BLOCK);
                         output.accept(ModBlocks.SECOND_BLOCK);
+                        output.accept(ModBlocks.FIRST_ORE);
+                        output.accept(ModBlocks.FIRST_DEEPSLATE_ORE);
                     })
                     .build());
 
