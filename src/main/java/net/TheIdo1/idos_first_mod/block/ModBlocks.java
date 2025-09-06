@@ -37,6 +37,11 @@ public class ModBlocks {
     ));
 
 
+        public static final DeferredBlock<Block> WOW_BLOCK = registerBlock("wow_block", ()-> new WowBlock(
+            BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:wow_block")))
+    ));
+
+
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
