@@ -44,7 +44,7 @@ public class ModBlocks {
 
         public static final DeferredBlock<Block> WOW_BLOCK = registerBlock("wow_block", ()-> new WowBlock(
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:wow_block")))
-                    .requiresCorrectToolForDrops().strength(2f, 6f).sound(SoundType.STONE).jumpFactor(1.3f)
+                    .requiresCorrectToolForDrops().strength(2f, 6f).sound(SoundType.STONE).jumpFactor(1.4f)
     ));
 
 
@@ -56,10 +56,6 @@ public class ModBlocks {
     }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block){
-//        String ID = block.get().getName();
-//        ModItems.ITEMS.register(name, ()-> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(
-//                Registries.ITEM, ResourceLocation.parse()
-//        ))));
         ModItems.ITEMS.registerSimpleBlockItem(block, new Item.Properties());
     }
 
