@@ -1,0 +1,5 @@
+// 1.21.8	2025-09-07T13:18:31.2380562	Tags for minecraft:block mod id idos_first_mod
+397a87cd4b0b10f3d97bd5be0b92460d9464b156 data/minecraft/tags/block/mineable/pickaxe.json
+5488a9594521d2a70fae560e45d741e5b37cb87e data/minecraft/tags/block/needs_diamond_tool.json
+0be33c0cf06b61e57cd190606fe0a9eff4cc28e1 data/minecraft/tags/block/needs_iron_tool.json
+7b344542707b27b221f9ffb28a62540ec56a34b0 data/minecraft/tags/block/needs_stone_tool.json
