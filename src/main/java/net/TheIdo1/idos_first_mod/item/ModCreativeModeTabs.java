@@ -33,6 +33,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.SECOND_BLOCK);
                         output.accept(ModBlocks.FIRST_ORE);
                         output.accept(ModBlocks.FIRST_DEEPSLATE_ORE);
+                        output.accept(ModBlocks.WOW_BLOCK);
                     })
                     .build());
 

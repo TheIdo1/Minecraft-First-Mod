@@ -5,6 +5,7 @@ import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -20,6 +21,8 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(IdosFirstMod.MOD_ID);
 
+
+    //Blocks
     public static final DeferredBlock<Block> FIRST_BLOCK = registerBlock("first_block",
             () -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().sound(SoundType.BAMBOO)
                     .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:first_block")))));
@@ -28,17 +31,20 @@ public class ModBlocks {
                     .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:second_block")))
                     .requiresCorrectToolForDrops().sound(SoundType.STONE)
                     ));
+
     public static final DeferredBlock<Block> FIRST_ORE = registerBlock("first_ore", ()-> new DropExperienceBlock(UniformInt.of(3,6),
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:first_ore")))
-                    .requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)
+                    .requiresCorrectToolForDrops().strength(2f,6f).sound(SoundType.STONE)
     ));
     public static final DeferredBlock<Block> FIRST_DEEPSLATE_ORE = registerBlock("first_deepslate_ore", ()-> new DropExperienceBlock(UniformInt.of(4,7),
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:first_deepslate_ore")))
+                    .requiresCorrectToolForDrops().strength(3f, 8f).sound(SoundType.DEEPSLATE)
     ));
 
 
         public static final DeferredBlock<Block> WOW_BLOCK = registerBlock("wow_block", ()-> new WowBlock(
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:wow_block")))
+                    .requiresCorrectToolForDrops().strength(2f, 6f).sound(SoundType.STONE).jumpFactor(1.3f)
     ));
 
 

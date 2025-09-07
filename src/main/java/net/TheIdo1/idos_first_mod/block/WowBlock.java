@@ -35,6 +35,7 @@ public class WowBlock extends Block {
 
     public WowBlock(Properties properties) {
         super(properties);
+
         this.registerDefaultState(this.defaultBlockState().setValue(COLOR, WowColor.BLUE));
     }
 

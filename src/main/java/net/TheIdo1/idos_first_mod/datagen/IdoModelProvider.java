@@ -7,9 +7,7 @@ import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
-import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.block.model.Variant;
@@ -23,8 +21,8 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 
 @EventBusSubscriber(modid = IdosFirstMod.MOD_ID)
-public class ModelProvider extends net.minecraft.client.data.models.ModelProvider {
-    public ModelProvider(PackOutput output) {
+public class IdoModelProvider extends net.minecraft.client.data.models.ModelProvider {
+    public IdoModelProvider(PackOutput output) {
         super(output, IdosFirstMod.MOD_ID);
     }
 
@@ -73,6 +71,6 @@ public class ModelProvider extends net.minecraft.client.data.models.ModelProvide
 
     @SubscribeEvent
     public static void onGatherData(final GatherDataEvent.Client event){
-        event.createProvider(ModelProvider::new);
+        event.createProvider(IdoModelProvider::new);
     }
 }
