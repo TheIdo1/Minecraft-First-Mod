@@ -27,15 +27,12 @@ public class IdoBlockLootTableSubProvider extends BlockLootSubProvider {
     }
 
     @Override
-    public Iterable<Block> getKnownBlocks(){
-        return List.of(
-                ModBlocks.FIRST_BLOCK.get(),
-                ModBlocks.SECOND_BLOCK.get(),
-                ModBlocks.WOW_BLOCK.get(),
-                ModBlocks.FIRST_ORE.get(),
-                ModBlocks.FIRST_DEEPSLATE_ORE.get()
-                );
+    protected Iterable<Block> getKnownBlocks() {
+        return ModBlocks.BLOCKS.getEntries().stream()
+                .map(e -> (Block) e.value())
+                .toList();
     }
+
 
 
     @Override
