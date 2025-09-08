@@ -42,16 +42,29 @@ public class ModBlocks {
     ));
 
 
-        public static final DeferredBlock<Block> WOW_BLOCK = registerBlock("wow_block", ()-> new WowBlock(
+    public static final DeferredBlock<Block> WOW_BLOCK = registerBlock("wow_block", ()-> new WowBlock(
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:wow_block")))
                     .requiresCorrectToolForDrops().strength(2f, 6f).sound(SoundType.STONE).jumpFactor(1.4f)
     ));
+
+
+    public static final DeferredBlock<Block> BONG_BLOCK = registerBlockWithoutItem("bong", ()-> new BongBlock(
+            BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:bong")))
+                    .strength(2f, 2f).sound(SoundType.GLASS).noOcclusion()
+    ));
+
+
 
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+   private static <T extends Block> DeferredBlock<T> registerBlockWithoutItem(String name, Supplier<T> block){
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         return toReturn;
     }
 

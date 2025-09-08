@@ -22,6 +22,7 @@ public class ModCreativeModeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.FIRST);
                         output.accept(ModItems.SECOND);
+                        output.accept(ModBlocks.BONG_BLOCK);
                     })
                     .build());
 
@@ -34,6 +35,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.FIRST_ORE);
                         output.accept(ModBlocks.FIRST_DEEPSLATE_ORE);
                         output.accept(ModBlocks.WOW_BLOCK);
+                        output.accept(ModBlocks.BONG_BLOCK);
                     })
                     .build());
 

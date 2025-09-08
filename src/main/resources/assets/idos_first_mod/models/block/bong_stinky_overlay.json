@@ -1,0 +1,30 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"texture_size": [32, 32],
+	"textures": {
+		"3": "minecraft:block/azalea_leaves"
+	},
+	"elements": [
+		{
+			"name": "Marijuana",
+			"from": [11.85, 3, 7.55],
+			"to": [12.8, 4.7, 8.475],
+			"rotation": {"angle": -45, "axis": "z", "origin": [12.25, 4.875, 8.25]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#3"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0.75, 0, -0.25]
+		}
+	}
+}
