@@ -1,6 +1,7 @@
 {
   "item.idos_first_mod.first" : "The First Item",
   "item.idos_first_mod.second" : "THE SECOND",
+  "item.idos_first_mod.bong": "Bong",
 
   "block.idos_first_mod.first_block": "La First A BLOCKA",
   "block.idos_first_mod.second_block": "El Secando Le BLOCKO",
@@ -10,4 +11,5 @@
   "creativetab.idos_first_mod.first_blocks": "First Blocks",
 
   "block.idos_first_mod.wow_block": "WOW BLOCK :O"
+
 }

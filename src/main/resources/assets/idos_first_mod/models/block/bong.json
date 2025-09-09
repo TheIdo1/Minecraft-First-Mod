@@ -1378,6 +1378,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"translation": [0.75, -3.25, -0.25]
@@ -1385,6 +1386,9 @@
 		"thirdperson_lefthand": {
 			"rotation": [0, 180, 0],
 			"translation": [0.75, -3.25, -0.25]
+		},
+		"gui": {
+			"translation": [0, 1, 0]
 		}
 	},
 	"groups": [

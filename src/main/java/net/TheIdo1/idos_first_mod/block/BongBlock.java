@@ -2,50 +2,59 @@ package net.TheIdo1.idos_first_mod.block;
 
 import com.google.gson.Gson;
 import com.mojang.serialization.MapCodec;
-import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class BongBlock extends HorizontalDirectionalBlock {
+public class BongBlock extends HorizontalDirectionalBlock implements LiquidBlockContainer {
 
     public static final MapCodec<BongBlock> CODEC = simpleCodec(BongBlock::new);
 
     // --- Hitbox from JSON (assets/idos_first_mod/models/block/bong_hitbox.json) ---
     private static final VoxelShape SHAPE_NORTH = loadShapeFromJson(
-            "/assets/idos_first_mod/models/block/bong_hitbox.json"
+            "/assets/idos_first_mod/hitboxes/bong_hitbox.json"
     );
     private static final Map<Direction, VoxelShape> SHAPES_BY_FACING = makeRotations(SHAPE_NORTH);
 
     public static final EnumProperty<BongBlock.WaterState> WATER_STATE = EnumProperty.create("water", BongBlock.WaterState.class);
 
     public static final BooleanProperty HAS_STINKY = BooleanProperty.create("has_stinky");
+    private static final Logger log = LoggerFactory.getLogger(BongBlock.class);
 
     public BongBlock(Properties properties) {
         super(properties);
@@ -69,7 +78,6 @@ public class BongBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATER_STATE, HAS_STINKY);
-        super.createBlockStateDefinition(builder);
     }
 
     @Override
@@ -95,6 +103,25 @@ public class BongBlock extends HorizontalDirectionalBlock {
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
+        if(stack.getItem() == Items.BUCKET && state.getValue(WATER_STATE) != WaterState.EMPTY){
+            if(!level.isClientSide()){
+                BlockState newBlockstate = state.setValue(WATER_STATE, WaterState.EMPTY);
+                level.setBlock(pos, newBlockstate, UPDATE_ALL);
+                if(!player.isCreative()){
+                    boolean clean = (state.getValue(WATER_STATE) == WaterState.WATER);
+                    ItemStack newStack;
+                    if (clean){
+                        newStack = new ItemStack(Items.WATER_BUCKET,1);
+                    } else {
+                        newStack = new ItemStack(Items.BUCKET,1);
+                    }
+                    player.setItemInHand(hand, newStack);
+                }
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
+            return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
+        }
+
         if(stack.getItem() == Items.SEAGRASS && !state.getValue(HAS_STINKY)){
             if(!level.isClientSide()){
                 BlockState newBlockstate = state.setValue(HAS_STINKY, true);
@@ -107,9 +134,49 @@ public class BongBlock extends HorizontalDirectionalBlock {
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
+        if (player.getMainHandItem().is(Items.AIR)) {
+
+            ItemStack stack1 = new ItemStack(ModBlocks.BONG_BLOCK.get().asItem());
+
+            stack1.set(
+                    DataComponents.BLOCK_STATE,
+                    new net.minecraft.world.item.component.BlockItemStateProperties(
+                            java.util.Map.of(
+                                    "water", state.getValue(BongBlock.WATER_STATE).getSerializedName(),
+                                    "has_stinky", String.valueOf(state.getValue(BongBlock.HAS_STINKY))
+                            )
+                    )
+            );
+
+            if (player.getMainHandItem().isEmpty()) {
+                player.setItemInHand(InteractionHand.MAIN_HAND, stack1);
+            } else if (!player.addItem(stack1)) {
+                player.drop(stack1, false);
+            }
+
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), UPDATE_ALL);
+
+            return InteractionResult.SUCCESS;
+        }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
+
+    //Cant be destroyed with a bucket
+    @Override
+    protected boolean canBeReplaced(BlockState state, Fluid fluid) {
+        return false;
+    }
+
+    @Override
+    public boolean canPlaceLiquid(@Nullable LivingEntity owner, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return false;
+    }
+
+    @Override
+    public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
+        return false;
+    }
 
     // ----------------- shapes -----------------
 

@@ -1,10 +1,11 @@
 {
   "format_version": "1.21.6",
   "credit": "Made with Blockbench",
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:translucent",
   "texture_size": [32, 32],
   "textures": {
-    "9": "idos_first_mod:block/stinky_water_texture"
+    "9": "idos_first_mod:block/stinky_water_texture",
+    "particle": "idos_first_mod:block/stinky_water_texture"
   },
   "elements": [
     {
@@ -232,9 +233,17 @@
       }
     }
   ],
+  "gui_light": "front",
   "display": {
     "thirdperson_righthand": {
-      "translation": [0.75, 0, -0.25]
+      "translation": [0.75, -3.25, -0.25]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, 180, 0],
+      "translation": [0.75, -3.25, -0.25]
+    },
+    "gui": {
+      "translation": [0, 1, 0]
     }
   },
   "groups": [

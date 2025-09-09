@@ -4,7 +4,8 @@
 	"render_type": "minecraft:cutout",
 	"texture_size": [32, 32],
 	"textures": {
-		"3": "minecraft:block/azalea_leaves"
+		"3": "minecraft:block/azalea_leaves",
+		"particle": "minecraft:block/azalea_leaves"
 	},
 	"elements": [
 		{
@@ -22,9 +23,17 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0.75, 0, -0.25]
+			"translation": [0.75, -3.25, -0.25]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 180, 0],
+			"translation": [0.75, -3.25, -0.25]
+		},
+		"gui": {
+			"translation": [0, 1, 0]
 		}
 	}
 }
