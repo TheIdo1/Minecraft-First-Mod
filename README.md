@@ -7,7 +7,7 @@ A small Minecraft mod for **1.21.8** built with **[NeoForge](https://neoforged.n
 - NeoForge **21.8.x** ([Download Here](https://maven.neoforged.net/releases/net/neoforged/neoforge/21.8.46/neoforge-21.8.46-installer.jar))
 
 ## Install
-1. Download the JAR: [Direct download](https://raw.githubusercontent.com/TheIdo1/TheFirstMod/main/idos_first_mod-0.0.1-1.21.8.jar)
+1. Download the JAR: [Direct download](https://raw.githubusercontent.com/TheIdo1/Minecraft-First-Mod/main/idos_first_mod-0.0.1-1.21.8.jar)
 2. Place the file in your `mods` folder.
 3. Start the game using NeoForge.
 
