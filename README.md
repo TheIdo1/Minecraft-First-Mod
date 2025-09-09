@@ -13,3 +13,10 @@ A small Minecraft mod for **1.21.8** built with **[NeoForge](https://neoforged.n
 
 ## Credits
 Made by **TheIdo1** — this is the first mod I’ve created.
+
+### Disclaimer
+This mod is not finished, and probably will never be. but only time will tell.
+
+even if this mod will be finished, maybe this readme file will not be updated.
+
+skibidi toilet sigma rizz.
