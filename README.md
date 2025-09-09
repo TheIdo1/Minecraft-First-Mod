@@ -1,10 +1,10 @@
 # The First Mod
 
-A small Minecraft mod for **1.21.8** built with **NeoForge**.
+A small Minecraft mod for **1.21.8** built with **[NeoForge](https://neoforged.net/)**.
 
 ## Requirements
 - Minecraft **1.21.8**
-- NeoForge **21.8.x**
+- NeoForge **21.8.x** ([Download Here](https://maven.neoforged.net/releases/net/neoforged/neoforge/21.8.46/neoforge-21.8.46-installer.jar))
 
 ## Install
 1. Download the JAR: [Direct download](https://raw.githubusercontent.com/TheIdo1/TheFirstMod/main/idos_first_mod-0.0.1-1.21.8.jar)
