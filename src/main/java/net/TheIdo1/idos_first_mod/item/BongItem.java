@@ -139,6 +139,9 @@ public class BongItem extends BlockItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
+        if(context.getPlayer() == null){
+            return super.useOn(context);
+        }
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState target = level.getBlockState(pos);
@@ -158,8 +161,8 @@ public class BongItem extends BlockItem {
         String water = map.getOrDefault("water", "empty");   // "empty" | "clean" | "stinky"
         String hasStinky = map.getOrDefault("has_stinky", "false"); // "true" | "false"
 
-        // 1) אם המים מלוכלכים: לרוקן אותם
-        if ("stinky".equals(water)) {
+
+        if ("stinky".equals(water) && context.getPlayer().isShiftKeyDown()) {
             if (!level.isClientSide) {
                 map.put("water", "empty");
                 stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
