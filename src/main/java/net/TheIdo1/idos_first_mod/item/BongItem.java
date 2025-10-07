@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.TheIdo1.idos_first_mod.block.BongBlock;
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
+import net.TheIdo1.idos_first_mod.effect.ModEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
@@ -110,10 +111,8 @@ public class BongItem extends BlockItem {
             if ("clean".equals(water) && hasStinky) {
 
                 //effect
-                player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 20 * 30, 0, false, true, true));
-                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 15, 0, false, false, true));
-                player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 20 * 30, 0, false, true, true));
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 20, 1, false, true, true));
+                player.addEffect(new MobEffectInstance(ModEffects.HIGH_EFFECT, 20 * 30, 0, false, true, true));
+
 
 
                 //update block

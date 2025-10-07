@@ -1,6 +1,7 @@
 package net.TheIdo1.idos_first_mod;
 
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
+import net.TheIdo1.idos_first_mod.effect.ModEffects;
 import net.TheIdo1.idos_first_mod.item.ModCreativeModeTabs;
 import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -39,6 +40,8 @@ public class IdosFirstMod {
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModEffects.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
