@@ -31,7 +31,8 @@ public class IdoBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.FIRST_BLOCK.get(),
                 ModBlocks.SECOND_BLOCK.get(),
                 ModBlocks.FIRST_ORE.get(),
-                ModBlocks.FIRST_DEEPSLATE_ORE.get()
+                ModBlocks.FIRST_DEEPSLATE_ORE.get(),
+                ModBlocks.BONG_BLOCK.get()
                 );
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(

@@ -44,6 +44,8 @@ public class IdoBlockLootTableSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.FIRST_ORE.get(), createCustomOreDrops(ModBlocks.FIRST_ORE.get(), ModItems.FIRST.get(), 2f, 5f));
         this.add(ModBlocks.FIRST_DEEPSLATE_ORE.get(), createCustomOreDrops(ModBlocks.FIRST_DEEPSLATE_ORE.get(), ModItems.FIRST.get(),3f ,6f));
 
+        this.dropWhenSilkTouch(ModBlocks.BONG_BLOCK.get());
+
     }
 
 

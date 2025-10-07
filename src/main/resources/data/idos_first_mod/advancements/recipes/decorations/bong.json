@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": ["idos_first_mod:bong"]
+  },
+  "criteria": {
+    "has_plain_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "item": "minecraft:glass" }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_plain_glass"]
+  ]
+}

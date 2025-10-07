@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "key": {
+    "A" : "minecraft:glass",
+    "B" : "minecraft:glass_pane",
+    "C" : "minecraft:iron_nugget"
+  },
+  "pattern":[
+    " B ",
+    "A A",
+    " AC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "idos_first_mod:bong"
+  }
+}

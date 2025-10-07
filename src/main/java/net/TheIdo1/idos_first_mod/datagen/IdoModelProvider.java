@@ -1,6 +1,9 @@
 package net.TheIdo1.idos_first_mod.datagen;
 
+import com.google.errorprone.annotations.Var;
+import com.mojang.math.Quadrant;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
+import net.TheIdo1.idos_first_mod.block.BongBlock;
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.block.WowBlock;
 import net.TheIdo1.idos_first_mod.item.ModItems;
@@ -11,9 +14,13 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.client.renderer.block.model.multipart.Condition;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -67,6 +74,81 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
         ItemModel.Unbaked wowBlockItemModel = ItemModelUtils.plainModel(wowBlockBlue);
         itemModelGenerators.itemModelOutput.accept(ModBlocks.WOW_BLOCK.asItem(), wowBlockItemModel);
 
+
+        // Bong Block
+
+        ResourceLocation base   = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong");
+        ResourceLocation clean  = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_clean");
+        ResourceLocation stinky = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_stinky");
+        ResourceLocation overlay= ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_stinky_overlay");
+
+        MultiPartGenerator mp = MultiPartGenerator.multiPart(ModBlocks.BONG_BLOCK.get())
+                // בסיס לפי כיוון
+                .with(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        BlockModelGenerators.variant(new Variant(base)))
+                .with(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        BlockModelGenerators.variant(new Variant(base).withYRot(Quadrant.R90)))
+                .with(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        BlockModelGenerators.variant(new Variant(base).withYRot(Quadrant.R180)))
+                .with(BlockModelGenerators.condition().term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        BlockModelGenerators.variant(new Variant(base).withYRot(Quadrant.R270)))
+                // מים clean
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.WATER),
+                        BlockModelGenerators.variant(new Variant(clean)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.WATER),
+                        BlockModelGenerators.variant(new Variant(clean).withYRot(Quadrant.R90)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.WATER),
+                        BlockModelGenerators.variant(new Variant(clean).withYRot(Quadrant.R180)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.WATER),
+                        BlockModelGenerators.variant(new Variant(clean).withYRot(Quadrant.R270)))
+                // מים stinky
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.BAD_WATER),
+                        BlockModelGenerators.variant(new Variant(stinky)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.BAD_WATER),
+                        BlockModelGenerators.variant(new Variant(stinky).withYRot(Quadrant.R90)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.BAD_WATER),
+                        BlockModelGenerators.variant(new Variant(stinky).withYRot(Quadrant.R180)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                                .term(BongBlock.WATER_STATE, BongBlock.WaterState.BAD_WATER),
+                        BlockModelGenerators.variant(new Variant(stinky).withYRot(Quadrant.R270)))
+                // שכבת overlay כש-has_stinky=true
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
+                                .term(BongBlock.HAS_STINKY, true),
+                        BlockModelGenerators.variant(new Variant(overlay)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)
+                                .term(BongBlock.HAS_STINKY, true),
+                        BlockModelGenerators.variant(new Variant(overlay).withYRot(Quadrant.R90)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)
+                                .term(BongBlock.HAS_STINKY, true),
+                        BlockModelGenerators.variant(new Variant(overlay).withYRot(Quadrant.R180)))
+                .with(BlockModelGenerators.condition()
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)
+                                .term(BongBlock.HAS_STINKY, true),
+                        BlockModelGenerators.variant(new Variant(overlay).withYRot(Quadrant.R270)));
+
+        blockModelGenerators.blockStateOutput.accept(mp);
+
+        // מודל פריט (אם אותו מודל כמו הבסיס):
+//        itemModelGenerators.itemModelOutput.accept(ModBlocks.BONG_BLOCK.asItem(), ItemModelUtils.plainModel(base));
+        itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(),ItemModelUtils.plainModel(ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID,"item/bong")));
     }
 
     @SubscribeEvent

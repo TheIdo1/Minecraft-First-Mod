@@ -3,6 +3,7 @@ package net.TheIdo1.idos_first_mod.block;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.enums.BubbleColumnDirection;
 
 public class WowBlock extends Block {
@@ -71,6 +73,10 @@ public class WowBlock extends Block {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        if (entity instanceof Player player){
+            Vec3 pVec = player.getDeltaMovement();
+            player.displayClientMessage(Component.literal(pVec.toString()),true);
+        }
         if(state.getValue(COLOR) == WowColor.RED){
             if (!entity.isSteppingCarefully() && entity instanceof LivingEntity) {
                 entity.hurt(level.damageSources().hotFloor(), 1.0F);

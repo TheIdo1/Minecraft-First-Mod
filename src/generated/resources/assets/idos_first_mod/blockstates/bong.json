@@ -1,0 +1,156 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_clean"
+      },
+      "when": {
+        "facing": "north",
+        "water": "clean"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_clean",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "water": "clean"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_clean",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "water": "clean"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_clean",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "water": "clean"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_stinky"
+      },
+      "when": {
+        "facing": "north",
+        "water": "stinky"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_stinky",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "water": "stinky"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_stinky",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "water": "stinky"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_water_stinky",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "water": "stinky"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_stinky_overlay"
+      },
+      "when": {
+        "facing": "north",
+        "has_stinky": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_stinky_overlay",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "has_stinky": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_stinky_overlay",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "has_stinky": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "idos_first_mod:block/bong_stinky_overlay",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "has_stinky": "true"
+      }
+    }
+  ]
+}

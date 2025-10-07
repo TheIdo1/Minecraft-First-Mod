@@ -50,7 +50,7 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> BONG_BLOCK = registerBlockWithoutItem("bong", ()-> new BongBlock(
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:bong")))
-                    .strength(2f, 2f).sound(SoundType.GLASS).noOcclusion()
+                    .strength(2f, 2f).sound(SoundType.GLASS).noOcclusion().requiresCorrectToolForDrops()
     ));
 
 
