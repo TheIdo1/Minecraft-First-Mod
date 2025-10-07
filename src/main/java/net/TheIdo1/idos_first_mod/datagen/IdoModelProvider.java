@@ -146,8 +146,7 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
         blockModelGenerators.blockStateOutput.accept(mp);
 
-        // מודל פריט (אם אותו מודל כמו הבסיס):
-//        itemModelGenerators.itemModelOutput.accept(ModBlocks.BONG_BLOCK.asItem(), ItemModelUtils.plainModel(base));
+        // Bong Item
         itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(),ItemModelUtils.plainModel(ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID,"item/bong")));
     }
 

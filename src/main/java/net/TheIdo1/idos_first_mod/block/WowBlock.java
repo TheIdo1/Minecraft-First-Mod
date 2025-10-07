@@ -75,7 +75,6 @@ public class WowBlock extends Block {
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (entity instanceof Player player){
             Vec3 pVec = player.getDeltaMovement();
-            player.displayClientMessage(Component.literal(pVec.toString()),true);
         }
         if(state.getValue(COLOR) == WowColor.RED){
             if (!entity.isSteppingCarefully() && entity instanceof LivingEntity) {
