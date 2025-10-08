@@ -15,14 +15,11 @@ public class HighEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
-
-        //hunger
         if (entity instanceof Player player) {
+            //hunger
             player.causeFoodExhaustion(0.002F * (amplifier + 1));
-        }
 
-        //regen
-        if (entity instanceof Player player){
+            //regen
             int i = 50 >> amplifier;
             int j = player.getEffect(ModEffects.HIGH_EFFECT).getDuration();
             if(i == 0 || j % i == 0){
@@ -30,6 +27,8 @@ public class HighEffect extends MobEffect {
                     entity.heal(1.0F);
                 }
             }
+
+
         }
 
         return true;

@@ -111,7 +111,7 @@ public class BongItem extends BlockItem {
             if ("clean".equals(water) && hasStinky) {
 
                 //effect
-                player.addEffect(new MobEffectInstance(ModEffects.HIGH_EFFECT, 20 * 30, 0, false, true, true));
+                player.addEffect(new MobEffectInstance(ModEffects.HIGH_EFFECT, 20 * 90, 0, false, true, true));
 
 
 
