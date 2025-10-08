@@ -1,0 +1,27 @@
+{
+  "bong_light": {
+    "subtitles": "sounds.idos_first_mod.bong_light",
+    "sounds": [
+      "idos_first_mod:bong_light"
+    ]
+  },
+  "bong_rip": {
+    "subtitles": "sounds.idos_first_mod.bong_rip",
+    "sounds": [
+      "idos_first_mod:bong_rip"
+    ]
+  },
+  "bong_finish": {
+    "subtitles": "sounds.idos_first_mod.bong_finish",
+    "sounds": [
+      "idos_first_mod:bong_finish"
+    ]
+  },
+  "bong_cough": {
+    "subtitles": "sounds.idos_first_mod.bong_cough",
+    "sounds": [
+      "idos_first_mod:bong_cough1",
+      "idos_first_mod:bong_cough2"
+    ]
+  }
+}

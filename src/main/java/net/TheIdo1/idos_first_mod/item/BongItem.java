@@ -5,6 +5,7 @@ import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.TheIdo1.idos_first_mod.block.BongBlock;
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
+import net.TheIdo1.idos_first_mod.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
@@ -56,28 +57,31 @@ public class BongItem extends BlockItem {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 25;
+        return 50;
     }
 
     public void onUseTick(Level level, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 
         if(!level.isClientSide && user instanceof Player p){
-            if(remainingUseTicks%3==0 && remainingUseTicks>=5){
+            if(remainingUseTicks==99){
+                level.playSound(null, p.getX(), p.getY(), p.getZ(),
+                        ModSounds.BONG_LIGHT.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
+            }
+            if(remainingUseTicks%5==0 && remainingUseTicks>=5){
                 float pitch = (float) -(remainingUseTicks * 0.2)+1;
                 level.playSound(null, p.getX(), p.getY(), p.getZ(),
-                        SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1.0F, 0.9F);
+                        ModSounds.BONG_RIP.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
             }
 
 
             if(remainingUseTicks==5){
             level.playSound(null, p.getX(), p.getY(), p.getZ(),
-                    SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1.2F, 1.4F);
+                    ModSounds.BONG_RIP.get(), SoundSource.PLAYERS, 1.2F, 1.4F);
             }
 
             if(remainingUseTicks==3){
                 level.playSound(null, p.getX(), p.getY(), p.getZ(),
-                        SoundEvents.CANDLE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 1.0F);
-                level.playSound(null, p.blockPosition(), SoundEvents.FOX_SNIFF,SoundSource.PLAYERS, 0.6f, 0.9f);
+                        ModSounds.BONG_FINISH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
         }
     }
@@ -119,6 +123,9 @@ public class BongItem extends BlockItem {
                 Map<String, String> newMap = new HashMap<>(props.properties());
                 if (Math.random() < 0.25) {
                     newMap.put("water", "stinky");
+                    // cough sound on dirt water
+                    level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
+                            ModSounds.BONG_COUGH.get(), SoundSource.PLAYERS, 0.8F, 1.0F);
                 }
                 newMap.put("has_stinky", "false");
 

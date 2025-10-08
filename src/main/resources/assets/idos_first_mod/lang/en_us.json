@@ -13,6 +13,11 @@
 
   "effect.idos_first_mod.high": "High",
 
-  "block.idos_first_mod.wow_block": "WOW BLOCK :O"
+  "block.idos_first_mod.wow_block": "WOW BLOCK :O",
+
+  "sounds.idos_first_mod.bong_light": "lighting bong",
+  "sounds.idos_first_mod.bong_rip": "ripping bong",
+  "sounds.idos_first_mod.bong_finish": "finished using bong",
+  "sounds.idos_first_mod.bong_cough": "coughing"
 
 }
