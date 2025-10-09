@@ -24,6 +24,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -152,6 +153,7 @@ public class BongItem extends BlockItem {
         BlockPos pos = context.getClickedPos();
         BlockState target = level.getBlockState(pos);
         ItemStack stack = context.getItemInHand();
+        Player player = context.getPlayer();
 
         BlockPlaceContext placeCtx = new BlockPlaceContext(context);
         BlockPos placePos = target.canBeReplaced(placeCtx)
@@ -173,11 +175,12 @@ public class BongItem extends BlockItem {
                 map.put("water", "empty");
                 stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
             }
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 1.0F);
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
         // 2) אם לוחצים על מים והאייטם ריק ממים: למלא מים נקיים
-        IdosFirstMod.LOGGER.debug(target.getFluidState().toString());
         if ("empty".equals(water) && (waterAtPlace || waterAtHit)) {
             if (!level.isClientSide) {
                 map.put("water", "clean");
