@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second",
+    "idos_first_mod:second"
+  ],
+  "result": {
+    "count": 1,
+    "id": "idos_first_mod:second_block"
+  }
+}

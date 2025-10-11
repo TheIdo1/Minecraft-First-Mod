@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "second_block",
+  "ingredient": "idos_first_mod:first_block",
+  "result": {
+    "count": 1,
+    "id": "idos_first_mod:second_block"
+  }
+}

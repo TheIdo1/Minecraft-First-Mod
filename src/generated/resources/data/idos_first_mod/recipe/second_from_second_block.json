@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "idos_first_mod:second_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "idos_first_mod:second"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "second",
+  "ingredient": "idos_first_mod:first",
+  "result": {
+    "count": 1,
+    "id": "idos_first_mod:second"
+  }
+}

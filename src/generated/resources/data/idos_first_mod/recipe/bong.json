@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:glass_bottle",
+    "G": "minecraft:glass",
+    "N": "minecraft:iron_nugget"
+  },
+  "pattern": [
+    " B ",
+    "G G",
+    " GN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "idos_first_mod:bong"
+  }
+}
