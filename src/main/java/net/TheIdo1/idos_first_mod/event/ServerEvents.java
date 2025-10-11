@@ -13,7 +13,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -35,6 +38,30 @@ public class ServerEvents {
 
 
         if (!player.hasEffect(ModEffects.HIGH_EFFECT)) return;
+
+        // check if can interact with block
+        BlockPos clickedPos = event.getPos();
+        BlockState clickedState = level.getBlockState(clickedPos);
+
+        assert event.getFace() != null;
+
+        InteractionResult result = clickedState.useItemOn(stack, level, player, event.getHand(),
+                new BlockHitResult(
+                        Vec3.atCenterOf(clickedPos),
+                        event.getFace(),
+                        clickedPos,
+                        false
+                ));
+        InteractionResult result2 = clickedState.useWithoutItem(level, player, new BlockHitResult(
+                Vec3.atCenterOf(clickedPos),
+                event.getFace(),
+                clickedPos,
+                false
+        ));
+
+        if ((result.consumesAction() || result2.consumesAction()) && !player.isShiftKeyDown()) {
+            return;
+        }
 
         // place correctly
         assert event.getFace() != null;
