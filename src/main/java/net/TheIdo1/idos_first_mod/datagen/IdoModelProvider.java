@@ -16,15 +16,21 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.renderer.block.model.multipart.Condition;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.properties.select.ItemBlockState;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
+import java.util.List;
 
 
 @EventBusSubscriber(modid = IdosFirstMod.MOD_ID)
@@ -80,7 +86,8 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
         ResourceLocation base   = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong");
         ResourceLocation clean  = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_clean");
         ResourceLocation stinky = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_stinky");
-        ResourceLocation overlay= ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_stinky_overlay");
+        ResourceLocation overlay = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_stinky_overlay");
+        ResourceLocation empty = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_empty");
 
         MultiPartGenerator mp = MultiPartGenerator.multiPart(ModBlocks.BONG_BLOCK.get())
                 // בסיס לפי כיוון
@@ -146,8 +153,25 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
         blockModelGenerators.blockStateOutput.accept(mp);
 
+
         // Bong Item
-        itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(),ItemModelUtils.plainModel(ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID,"item/bong")));
+        var baseModel   = new net.minecraft.client.renderer.item.BlockModelWrapper.Unbaked(base, java.util.List.of());
+
+        var hasWater = ItemModelUtils.select(new ItemBlockState(BongBlock.WATER_STATE.getName()),
+                ItemModelUtils.plainModel(empty),
+                new SelectItemModel.SwitchCase<>(List.of(BongBlock.WaterState.WATER.getSerializedName()), ItemModelUtils.plainModel(clean)),
+                new SelectItemModel.SwitchCase<>(List.of(BongBlock.WaterState.BAD_WATER.getSerializedName()), ItemModelUtils.plainModel(stinky))
+                );
+
+        var hasStinky = ItemModelUtils.select(new ItemBlockState(BongBlock.HAS_STINKY.getName()),
+                ItemModelUtils.plainModel(empty),
+                new SelectItemModel.SwitchCase<>(List.of("true"), ItemModelUtils.plainModel(overlay))
+                );
+
+        ItemModel.Unbaked bongItemModel =  ItemModelUtils.composite(baseModel, hasWater, hasStinky);
+
+        itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(), bongItemModel);
+
     }
 
     @SubscribeEvent
