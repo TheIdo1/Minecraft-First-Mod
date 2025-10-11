@@ -1,54 +1,88 @@
 {
   "model": {
-    "type": "minecraft:composite",
-    "models": [
+    "type": "minecraft:select",
+    "cases": [
       {
-        "type": "minecraft:model",
-        "model": "idos_first_mod:block/bong"
-      },
-      {
-        "type": "minecraft:select",
-        "block_state_property": "water",
-        "cases": [
-          {
-            "model": {
-              "type": "minecraft:model",
-              "model": "idos_first_mod:block/bong_water_clean"
+        "model": {
+          "type": "minecraft:select",
+          "block_state_property": "water",
+          "cases": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "idos_first_mod:item/bong_water"
+              },
+              "when": "clean"
             },
-            "when": "clean"
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "idos_first_mod:item/bong_water_bad"
+              },
+              "when": "stinky"
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "idos_first_mod:item/bong"
           },
-          {
-            "model": {
-              "type": "minecraft:model",
-              "model": "idos_first_mod:block/bong_water_stinky"
-            },
-            "when": "stinky"
-          }
-        ],
-        "fallback": {
-          "type": "minecraft:model",
-          "model": "idos_first_mod:block/bong_empty"
+          "property": "minecraft:block_state"
         },
-        "property": "minecraft:block_state"
-      },
-      {
-        "type": "minecraft:select",
-        "block_state_property": "has_stinky",
-        "cases": [
-          {
-            "model": {
-              "type": "minecraft:model",
-              "model": "idos_first_mod:block/bong_stinky_overlay"
-            },
-            "when": "true"
-          }
-        ],
-        "fallback": {
-          "type": "minecraft:model",
-          "model": "idos_first_mod:block/bong_empty"
-        },
-        "property": "minecraft:block_state"
+        "when": "gui"
       }
-    ]
+    ],
+    "fallback": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "idos_first_mod:block/bong"
+        },
+        {
+          "type": "minecraft:select",
+          "block_state_property": "water",
+          "cases": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "idos_first_mod:block/bong_water_clean"
+              },
+              "when": "clean"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "idos_first_mod:block/bong_water_stinky"
+              },
+              "when": "stinky"
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "idos_first_mod:block/bong_empty"
+          },
+          "property": "minecraft:block_state"
+        },
+        {
+          "type": "minecraft:select",
+          "block_state_property": "has_stinky",
+          "cases": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "idos_first_mod:block/bong_stinky_overlay"
+              },
+              "when": "true"
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "idos_first_mod:block/bong_empty"
+          },
+          "property": "minecraft:block_state"
+        }
+      ]
+    },
+    "property": "minecraft:display_context"
   }
 }

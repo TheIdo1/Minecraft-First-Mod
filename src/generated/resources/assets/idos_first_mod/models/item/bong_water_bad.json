@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "idos_first_mod:item/bong_water_bad"
+  }
+}

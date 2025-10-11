@@ -16,13 +16,16 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.renderer.block.model.multipart.Condition;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ModelRenderProperties;
 import net.minecraft.client.renderer.item.SelectItemModel;
+import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.client.renderer.item.properties.select.ItemBlockState;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -168,9 +171,22 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
                 new SelectItemModel.SwitchCase<>(List.of("true"), ItemModelUtils.plainModel(overlay))
                 );
 
-        ItemModel.Unbaked bongItemModel =  ItemModelUtils.composite(baseModel, hasWater, hasStinky);
+        ItemModel.Unbaked bongItemModel3D =  ItemModelUtils.composite(baseModel, hasWater, hasStinky);
 
-        itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(), bongItemModel);
+
+        ItemModel.Unbaked bongItemModel2D = ItemModelUtils.select(new ItemBlockState(BongBlock.WATER_STATE.getName()),
+                ItemModelUtils.plainModel(itemModelGenerators.createFlatItemModel(ModItems.BONG_ITEM.get(), ModelTemplates.FLAT_ITEM)),
+                new SelectItemModel.SwitchCase<>(List.of(BongBlock.WaterState.WATER.getSerializedName()), ItemModelUtils.plainModel(itemModelGenerators.createFlatItemModel(ModItems.BONG_ITEM.get(),"_water" ,ModelTemplates.FLAT_ITEM))),
+                new SelectItemModel.SwitchCase<>(List.of(BongBlock.WaterState.BAD_WATER.getSerializedName()), ItemModelUtils.plainModel(itemModelGenerators.createFlatItemModel(ModItems.BONG_ITEM.get(), "_water_bad",ModelTemplates.FLAT_ITEM)))
+        );
+
+
+        ItemModel.Unbaked bongItemComplete = ItemModelUtils.select(new DisplayContext(),
+                bongItemModel3D,
+                new SelectItemModel.SwitchCase<>(List.of(ItemDisplayContext.GUI), bongItemModel2D));
+
+
+        itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(), bongItemComplete);
 
     }
 
