@@ -4,7 +4,11 @@ package net.TheIdo1.idos_first_mod.event;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
+import net.TheIdo1.idos_first_mod.entity.ModEntities;
+import net.TheIdo1.idos_first_mod.entity.custom.SkibEntity;
+import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,12 +19,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.entity.animation.AnimationKeyframeTarget;
+import net.neoforged.neoforge.client.entity.animation.AnimationTarget;
+import net.neoforged.neoforge.client.event.RegisterJsonAnimationTypesEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import org.joml.Vector3f;
 
 @EventBusSubscriber(modid = IdosFirstMod.MOD_ID)
 public class ServerEvents {
@@ -83,6 +93,12 @@ public class ServerEvents {
                 ModBlocks.FIRST_BLOCK.get().defaultBlockState().getSoundType().getPlaceSound(),
                 SoundSource.BLOCKS, 1.0F, 1.0F);
     }
+
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event){
+        event.put(ModEntities.SKIB.get(), SkibEntity.createAttributes().build());
+    }
+
 
 
 

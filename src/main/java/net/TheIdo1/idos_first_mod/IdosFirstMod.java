@@ -2,6 +2,7 @@ package net.TheIdo1.idos_first_mod;
 
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
+import net.TheIdo1.idos_first_mod.entity.ModEntities;
 import net.TheIdo1.idos_first_mod.item.ModCreativeModeTabs;
 import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.TheIdo1.idos_first_mod.sound.ModSounds;
@@ -44,6 +45,8 @@ public class IdosFirstMod {
 
         ModEffects.register(modEventBus);
         ModSounds.register(modEventBus);
+
+        ModEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

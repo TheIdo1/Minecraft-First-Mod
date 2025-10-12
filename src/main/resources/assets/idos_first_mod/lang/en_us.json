@@ -18,6 +18,8 @@
   "sounds.idos_first_mod.bong_light": "lighting bong",
   "sounds.idos_first_mod.bong_rip": "ripping bong",
   "sounds.idos_first_mod.bong_finish": "finished using bong",
-  "sounds.idos_first_mod.bong_cough": "coughing"
+  "sounds.idos_first_mod.bong_cough": "coughing",
 
+  "entity.idos_first_mod.skib": "Skib",
+  "item.idos_first_mod.skib_spawn_egg": "Skib Spawn Egg"
 }
