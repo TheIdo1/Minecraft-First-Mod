@@ -85,9 +85,6 @@ public class SkibEntity extends Animal {
         } else {
             --this.headSpinTimeout;
         }
-
-
-
     }
 
     @Override

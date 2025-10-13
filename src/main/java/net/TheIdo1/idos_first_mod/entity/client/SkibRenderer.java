@@ -3,10 +3,14 @@ package net.TheIdo1.idos_first_mod.entity.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.TheIdo1.idos_first_mod.entity.custom.SkibEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 
 public class SkibRenderer extends LivingEntityRenderer<SkibEntity, SkibRenderState, SkibModel> {
 
@@ -14,7 +18,10 @@ public class SkibRenderer extends LivingEntityRenderer<SkibEntity, SkibRenderSta
 
     public SkibRenderer(EntityRendererProvider.Context context) {
         super(context, new SkibModel(context.bakeLayer(SkibModel.LAYER_LOCATION)), 0.3f);
+
         this.addLayer(new SkibRenderLayer(this, context.getModelSet()));
+
+        this.addLayer(new SkibItemRenderLayer(this, Minecraft.getInstance().getItemRenderer()));
     }
 
 
@@ -22,6 +29,16 @@ public class SkibRenderer extends LivingEntityRenderer<SkibEntity, SkibRenderSta
     public void extractRenderState(SkibEntity entity, SkibRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.ageInTicks = entity.tickCount + partialTicks;
+        state.level = entity.level();
+
+        state.itemInMainHand = entity.getItemInHand(InteractionHand.MAIN_HAND);
+        state.mainHand = HumanoidArm.RIGHT;
+        state.isItemInMainHand = !state.itemInMainHand.isEmpty();
+
+        state.itemInOffHand = entity.getItemInHand(InteractionHand.OFF_HAND);
+        state.offHand = HumanoidArm.LEFT;
+        state.isItemInOffHand = !state.itemInOffHand.isEmpty();
+
 
         state.idleState.copyFrom(entity.idleAnimationState);
         state.isIdle = state.idleState.isStarted();

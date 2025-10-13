@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -13,9 +14,10 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.HumanoidArm;
 import net.neoforged.neoforge.client.entity.animation.json.AnimationHolder;
 
-public class SkibModel extends EntityModel<SkibRenderState> {
+public class SkibModel extends EntityModel<SkibRenderState> implements ArmedModel {
 
     public static final AnimationHolder HEAD_SPIN_ANIMATION =
             Model.getAnimation(ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "skib/head_spin"));
@@ -29,6 +31,7 @@ public class SkibModel extends EntityModel<SkibRenderState> {
     public static final AnimationHolder BONG_USE_ANIMATION =
             Model.getAnimation(ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "skib/bong_use"));
 
+    private static final float DEG2RAD = (float) Math.PI / 180f;
 
 
     private final KeyframeAnimation headSpin;
@@ -95,6 +98,16 @@ public class SkibModel extends EntityModel<SkibRenderState> {
         this.Hat.xRot = headPitch *  ((float)Math.PI / 180f);
     }
 
+    private void applyMainHandHoldingItemRotation(){
+        this.RightArm.xRot = -40f * DEG2RAD + 3f * DEG2RAD;
+        this.RightArm.yRot = 5f * DEG2RAD;
+    }
+
+    private void applyOffHandHoldingItemRotation(){
+        this.LeftArm.xRot = -40f * DEG2RAD + 3f * DEG2RAD;
+        this.LeftArm.yRot = -5f * DEG2RAD;
+    }
+
 
     @Override
     public void setupAnim(SkibRenderState renderState) {
@@ -125,6 +138,13 @@ public class SkibModel extends EntityModel<SkibRenderState> {
             this.headSpin.apply(renderState.headSpinState, renderState.ageInTicks);
         }
 
+        if(renderState.isItemInMainHand){
+            this.applyMainHandHoldingItemRotation();
+        }
+        if(renderState.isItemInOffHand){
+            this.applyOffHandHoldingItemRotation();
+        }
+
         if(doApplyHeadRotation){
         this.applyHeadRotation(renderState.xRot, renderState.yRot);
         }
@@ -132,8 +152,17 @@ public class SkibModel extends EntityModel<SkibRenderState> {
 
     }
 
+    @Override
+    public void translateToHand(HumanoidArm side, PoseStack poseStack) {
+        // אם יש לך parent hierarchy (Body -> Arm), תתרגם דרכם.
+        // אצלך הזרועות ילדים של ה-root, אז:
+        this.root().translateAndRotate(poseStack);
+
+        ModelPart armPart = (side == HumanoidArm.RIGHT) ? this.RightArm : this.LeftArm;
+
+        armPart.translateAndRotate(poseStack);
 
 
-
+    }
 
 }
