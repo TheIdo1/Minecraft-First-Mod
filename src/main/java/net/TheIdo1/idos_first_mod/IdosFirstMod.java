@@ -72,6 +72,10 @@ public class IdosFirstMod {
             event.accept(ModBlocks.SECOND_BLOCK);
         }
 
+        if( event.getTabKey() == CreativeModeTabs.SPAWN_EGGS){
+            event.accept(ModItems.SKIB_SPAWN_EGG);
+        }
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

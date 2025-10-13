@@ -23,6 +23,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FIRST);
                         output.accept(ModItems.SECOND);
                         output.accept(ModBlocks.BONG_BLOCK);
+                        output.accept(ModItems.SKIB_SPAWN_EGG);
                     })
                     .build());
 
