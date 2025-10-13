@@ -98,15 +98,16 @@ public class SkibModel extends EntityModel<SkibRenderState> implements ArmedMode
         this.Hat.xRot = headPitch *  ((float)Math.PI / 180f);
     }
 
-    private void applyMainHandHoldingItemRotation(){
+    private void applyHandHoldingItemRotation(HumanoidArm arm){
+        if (arm == HumanoidArm.RIGHT){
         this.RightArm.xRot = -40f * DEG2RAD + 3f * DEG2RAD;
         this.RightArm.yRot = 5f * DEG2RAD;
+        } else {
+            this.LeftArm.xRot = -40f * DEG2RAD + 3f * DEG2RAD;
+            this.LeftArm.yRot = -5f * DEG2RAD;
+        }
     }
 
-    private void applyOffHandHoldingItemRotation(){
-        this.LeftArm.xRot = -40f * DEG2RAD + 3f * DEG2RAD;
-        this.LeftArm.yRot = -5f * DEG2RAD;
-    }
 
 
     @Override
@@ -139,10 +140,10 @@ public class SkibModel extends EntityModel<SkibRenderState> implements ArmedMode
         }
 
         if(renderState.isItemInMainHand){
-            this.applyMainHandHoldingItemRotation();
+            this.applyHandHoldingItemRotation(renderState.mainHand);
         }
         if(renderState.isItemInOffHand){
-            this.applyOffHandHoldingItemRotation();
+            this.applyHandHoldingItemRotation(renderState.offHand);
         }
 
         if(doApplyHeadRotation){

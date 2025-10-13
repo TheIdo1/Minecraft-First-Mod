@@ -35,8 +35,10 @@ public class SkibItemRenderLayer extends RenderLayer<SkibRenderState, SkibModel>
             poseStack.rotateAround(Axis.YP.rotationDegrees(180.0F),0f,0f,0f);
             poseStack.rotateAround(Axis.XP.rotationDegrees(-45f), 0,0, 0);
 
+
+
             itemRenderer.renderStatic(renderState.itemInMainHand,
-                    ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
+                    renderState.mainHand == HumanoidArm.RIGHT ? ItemDisplayContext.THIRD_PERSON_RIGHT_HAND : ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
                     packedLight, OverlayTexture.NO_OVERLAY, poseStack, bufferSource, renderState.level, renderState.entityId);
 
             poseStack.popPose();
@@ -54,7 +56,7 @@ public class SkibItemRenderLayer extends RenderLayer<SkibRenderState, SkibModel>
 
 
             itemRenderer.renderStatic(renderState.itemInOffHand,
-                    ItemDisplayContext.THIRD_PERSON_LEFT_HAND,
+                    renderState.mainHand == HumanoidArm.RIGHT ? ItemDisplayContext.THIRD_PERSON_LEFT_HAND : ItemDisplayContext.THIRD_PERSON_RIGHT_HAND,
                     packedLight, OverlayTexture.NO_OVERLAY, poseStack, bufferSource, renderState.level, renderState.entityId);
 
             poseStack.popPose();

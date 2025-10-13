@@ -32,11 +32,11 @@ public class SkibRenderer extends LivingEntityRenderer<SkibEntity, SkibRenderSta
         state.level = entity.level();
 
         state.itemInMainHand = entity.getItemInHand(InteractionHand.MAIN_HAND);
-        state.mainHand = HumanoidArm.RIGHT;
+        state.mainHand = entity.isLeftHanded() ? HumanoidArm.LEFT : HumanoidArm.RIGHT;
         state.isItemInMainHand = !state.itemInMainHand.isEmpty();
 
         state.itemInOffHand = entity.getItemInHand(InteractionHand.OFF_HAND);
-        state.offHand = HumanoidArm.LEFT;
+        state.offHand = entity.isLeftHanded() ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
         state.isItemInOffHand = !state.itemInOffHand.isEmpty();
 
 
