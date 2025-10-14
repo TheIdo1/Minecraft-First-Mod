@@ -26,6 +26,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
@@ -174,7 +175,6 @@ public class BongItem extends BlockItem {
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
-        // 2) אם לוחצים על מים והאייטם ריק ממים: למלא מים נקיים
         if ("empty".equals(water) && (waterAtPlace || waterAtHit)) {
             if (!level.isClientSide) {
                 map.put("water", "clean");
@@ -184,18 +184,23 @@ public class BongItem extends BlockItem {
         }
 
 
-        if (target.is(ModBlocks.WEED_BUSH.get())) {
+        if (target.is(ModBlocks.WEED_BUSH.get()) && (target.getValue(BlockStateProperties.AGE_3)==1) || (target.getValue(BlockStateProperties.AGE_3)==2)) {
             if (!"true".equals(hasStinky)) {
                 if (!level.isClientSide) {
+
                     map.put("has_stinky", "true");
                     stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
+
+                    if (target.getValue(BlockStateProperties.AGE_3)==1){
+                    level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 0), 3);
+                    } else if (target.getValue(BlockStateProperties.AGE_3)==2) {
+                    level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 1), 3);
+                    }
                 }
                 return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             }
-            // אם כבר true — לא עשינו שינוי, נאפשר התנהגות ברירת מחדל (למשל ניסיון להצבה)
         }
 
-        // אחרת: התנהגות רגילה של BlockItem (ניסיון להציב את הבלוק)
         return super.useOn(context);
     }
 
@@ -235,8 +240,8 @@ public class BongItem extends BlockItem {
 
         AreaEffectCloud cloud = new AreaEffectCloud(level, mouth.x, mouth.y, mouth.z);
         cloud.setWaitTime(0);
-        cloud.setDuration(durationTicks);          // משך החיים בטיקים (למשל 40–80)
-        cloud.setRadius(0.6f);                    // גודל הענן
+        cloud.setDuration(durationTicks);
+        cloud.setRadius(0.6f);
         cloud.setRadiusPerTick(-0.45f / durationTicks); // דהייה הדרגתית עד 0
         cloud.setCustomParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE);
         cloud.setNoGravity(true);
