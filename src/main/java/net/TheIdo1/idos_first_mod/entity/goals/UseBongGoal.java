@@ -44,7 +44,7 @@ public class UseBongGoal extends Goal {
 
     @Override
     public void start() {
-        this.useBongAnim = 35;
+        this.useBongAnim = 20;
         this.mob.startUsingItem(InteractionHand.MAIN_HAND);
         mob.setUsingBong(true);
         this.mob.playSound(this.bongLightSound, 0.7F, 1.0F);
@@ -52,6 +52,8 @@ public class UseBongGoal extends Goal {
 
     @Override
     public void stop() {
+        this.mob.stopUsingItem();
+
         ItemStack item = this.mob.getMainHandItem();
         BlockItemStateProperties props = item.getOrDefault(
                 net.minecraft.core.component.DataComponents.BLOCK_STATE,

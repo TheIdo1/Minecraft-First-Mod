@@ -100,7 +100,7 @@ public class SkibEntity extends Animal {
 
         if (this.isUsingBong()) {
             if(this.bongUseTimeout <= 0){
-                bongUseTimeout = 50;
+                bongUseTimeout = 30;
                 this.bongUseAnimationState.start(this.tickCount);
             } else {
                 --bongUseTimeout;

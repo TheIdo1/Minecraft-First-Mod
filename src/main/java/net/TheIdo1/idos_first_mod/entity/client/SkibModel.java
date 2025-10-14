@@ -117,6 +117,7 @@ public class SkibModel extends EntityModel<SkibRenderState> implements ArmedMode
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         boolean doApplyHeadRotation = true;
+        boolean doApplyHandRotations = true;
 
 
         if(renderState.isMoving){
@@ -129,7 +130,9 @@ public class SkibModel extends EntityModel<SkibRenderState> implements ArmedMode
 
         if (renderState.isBongUse){
             renderState.idleState.stop();
+            renderState.walkState.stop();
             doApplyHeadRotation = false;
+            doApplyHandRotations = false;
             this.bongUse.apply(renderState.bongUseState, renderState.ageInTicks);
         }
 
@@ -139,10 +142,10 @@ public class SkibModel extends EntityModel<SkibRenderState> implements ArmedMode
             this.headSpin.apply(renderState.headSpinState, renderState.ageInTicks);
         }
 
-        if(renderState.isItemInMainHand){
+        if(renderState.isItemInMainHand && doApplyHandRotations){
             this.applyHandHoldingItemRotation(renderState.mainHand);
         }
-        if(renderState.isItemInOffHand){
+        if(renderState.isItemInOffHand && doApplyHandRotations){
             this.applyHandHoldingItemRotation(renderState.offHand);
         }
 
