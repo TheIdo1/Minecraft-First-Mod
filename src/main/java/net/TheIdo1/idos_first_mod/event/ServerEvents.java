@@ -90,7 +90,7 @@ public class ServerEvents {
         // play sound
         level.gameEvent(player, GameEvent.BLOCK_PLACE, placePos);
         level.playSound(null, placePos,
-                ModBlocks.FIRST_BLOCK.get().defaultBlockState().getSoundType().getPlaceSound(),
+                ModBlocks.FIRST_BLOCK.get().defaultBlockState().getSoundType(level, placePos, player).getPlaceSound(),
                 SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
