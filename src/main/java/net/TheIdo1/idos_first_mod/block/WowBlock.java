@@ -1,6 +1,7 @@
 package net.TheIdo1.idos_first_mod.block;
 
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
+import net.minecraft.client.multiplayer.chat.report.ReportEnvironment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -78,7 +79,10 @@ public class WowBlock extends Block {
         }
         if(state.getValue(COLOR) == WowColor.RED){
             if (!entity.isSteppingCarefully() && entity instanceof LivingEntity) {
-                entity.hurt(level.damageSources().hotFloor(), 1.0F);
+                if(level instanceof ServerLevel serverLevel){
+                entity.hurtServer(serverLevel , level.damageSources().hotFloor(), 1.0F);
+                }
+
             }
         } else if (state.getValue(COLOR) == WowColor.GREEN) {
             if (!entity.isSteppingCarefully() && entity instanceof LivingEntity && entity.onGround()){
