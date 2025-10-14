@@ -1,16 +1,8 @@
 package net.TheIdo1.idos_first_mod.item;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.TheIdo1.idos_first_mod.IdosFirstMod;
-import net.TheIdo1.idos_first_mod.block.BongBlock;
-import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
 import net.TheIdo1.idos_first_mod.sound.ModSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -21,13 +13,10 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.BlockItemStateProperties;
@@ -37,12 +26,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class BongItem extends BlockItem {
 
@@ -63,25 +49,25 @@ public class BongItem extends BlockItem {
 
     public void onUseTick(Level level, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 
-        if(!level.isClientSide && user instanceof Player p){
+        if(!level.isClientSide){
             if(remainingUseTicks==99){
-                level.playSound(null, p.getX(), p.getY(), p.getZ(),
+                level.playSound(null, user.getX(), user.getY(), user.getZ(),
                         ModSounds.BONG_LIGHT.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
             }
             if(remainingUseTicks%5==0 && remainingUseTicks>=5){
                 float pitch = (float) -(remainingUseTicks * 0.2)+1;
-                level.playSound(null, p.getX(), p.getY(), p.getZ(),
+                level.playSound(null, user.getX(), user.getY(), user.getZ(),
                         ModSounds.BONG_RIP.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
             }
 
 
             if(remainingUseTicks==5){
-            level.playSound(null, p.getX(), p.getY(), p.getZ(),
+            level.playSound(null, user.getX(), user.getY(), user.getZ(),
                     ModSounds.BONG_RIP.get(), SoundSource.PLAYERS, 1.2F, 1.4F);
             }
 
             if(remainingUseTicks==3){
-                level.playSound(null, p.getX(), p.getY(), p.getZ(),
+                level.playSound(null, user.getX(), user.getY(), user.getZ(),
                         ModSounds.BONG_FINISH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
         }
@@ -92,15 +78,22 @@ public class BongItem extends BlockItem {
         ItemStack stack = player.getItemInHand(hand);
 
         if (player.isShiftKeyDown()) {
-            BlockItemStateProperties props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
-            String water = props.properties().get("water");
-            boolean hasStinky = "true".equals(props.properties().get("has_stinky"));
-            if ("clean".equals(water) && hasStinky) {
+            if (canUseBong(stack)) {
                 player.startUsingItem(hand);
                 return InteractionResult.CONSUME;
             }
         }
         return super.use(level, player, hand);
+    }
+
+    public static boolean canUseBong(ItemStack stack){
+        if (!stack.is(ModItems.BONG_ITEM.get())){
+            return false;
+        }
+        BlockItemStateProperties props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
+        String water = props.properties().get("water");
+        boolean hasStinky = "true".equals(props.properties().get("has_stinky"));
+        return ("clean".equals(water) && hasStinky);
     }
 
     @Override

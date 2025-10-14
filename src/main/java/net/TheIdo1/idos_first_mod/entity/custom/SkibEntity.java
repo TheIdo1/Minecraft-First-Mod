@@ -1,7 +1,15 @@
 package net.TheIdo1.idos_first_mod.entity.custom;
 
 import net.TheIdo1.idos_first_mod.entity.ModEntities;
+import net.TheIdo1.idos_first_mod.entity.goals.UseBongGoal;
+import net.TheIdo1.idos_first_mod.item.BongItem;
+import net.TheIdo1.idos_first_mod.item.ModItems;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -23,7 +31,9 @@ public class SkibEntity extends Animal {
     private int idleAnimationTimeout = 0;
 
     public final AnimationState bongUseAnimationState = new AnimationState();
-    private int bongUseTimeout = 0;
+    private static final EntityDataAccessor<Boolean> USING_BONG =
+            SynchedEntityData.defineId(SkibEntity.class, EntityDataSerializers.BOOLEAN);
+    private int bongUseTimeout;
 
     public final AnimationState headSpinAnimationState = new AnimationState();
     private int headSpinTimeout;
@@ -42,6 +52,8 @@ public class SkibEntity extends Animal {
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.75f, stack -> stack.is(WEED_ITEM), false));
+
+        this.goalSelector.addGoal(4, new UseBongGoal(this));
 
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
 
@@ -85,15 +97,39 @@ public class SkibEntity extends Animal {
         } else {
             --this.headSpinTimeout;
         }
+
+        if (this.isUsingBong()) {
+            if(this.bongUseTimeout <= 0){
+                bongUseTimeout = 50;
+                this.bongUseAnimationState.start(this.tickCount);
+            } else {
+                --bongUseTimeout;
+            }
+        } else {
+            this.bongUseAnimationState.stop();
+        }
     }
 
     @Override
     public void tick() {
         super.tick();
-
         if(this.level().isClientSide()) {
             this.setupAnimationStates();
         }
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(USING_BONG, false);
+    }
+
+    public boolean isUsingBong() {
+        return this.entityData.get(USING_BONG);
+    }
+
+    public void setUsingBong(boolean v) {
+        this.entityData.set(USING_BONG, v);
     }
 
 }
