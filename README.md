@@ -20,3 +20,5 @@ This mod is not finished, and probably will never be. but only time will tell.
 even if this mod will be finished, maybe this readme file will not be updated.
 
 skibidi toilet sigma rizz.
+
+![mod cover](https://github.com/TheIdo1/Minecraft-First-Mod/blob/main/thumbnail.png)
