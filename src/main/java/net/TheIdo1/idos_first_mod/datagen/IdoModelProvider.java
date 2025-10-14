@@ -92,7 +92,6 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
 
         // Bong Block
-
         ResourceLocation base   = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong");
         ResourceLocation clean  = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_clean");
         ResourceLocation stinky = ResourceLocation.fromNamespaceAndPath(IdosFirstMod.MOD_ID, "block/bong_water_stinky");
@@ -190,7 +189,7 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
         ItemModel.Unbaked bongItemComplete = ItemModelUtils.select(new DisplayContext(),
                 bongItemModel3D,
-                new SelectItemModel.SwitchCase<>(List.of(ItemDisplayContext.GUI), bongItemModel2D));
+                new SelectItemModel.SwitchCase<>(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND), bongItemModel2D));
 
 
         itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(), bongItemComplete);
@@ -198,9 +197,6 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
 
         // Weed Bush
-
-
-
         blockModelGenerators.blockStateOutput
                 .accept(
                         MultiVariantGenerator.dispatch(ModBlocks.WEED_BUSH.get())

@@ -28,7 +28,10 @@
           },
           "property": "minecraft:block_state"
         },
-        "when": "gui"
+        "when": [
+          "gui",
+          "ground"
+        ]
       }
     ],
     "fallback": {
