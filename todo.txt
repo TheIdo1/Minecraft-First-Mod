@@ -1,0 +1,12 @@
+render item on skib v
+
+skib Goals:
+use bong v
+steal bong
+clean bong
+get weed to bong
+
+skib Sounds: all defaults + stealing
+
+optional:
+weed item + bush v
