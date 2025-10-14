@@ -1,5 +1,6 @@
 package net.TheIdo1.idos_first_mod.item;
 
+import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
 import net.TheIdo1.idos_first_mod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -182,8 +183,8 @@ public class BongItem extends BlockItem {
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
-        // 3) אם לוחצים על LEAVES: has_stinky = true
-        if (target.is(BlockTags.LEAVES)) {
+
+        if (target.is(ModBlocks.WEED_BUSH.get())) {
             if (!"true".equals(hasStinky)) {
                 if (!level.isClientSide) {
                     map.put("has_stinky", "true");

@@ -1,0 +1,8 @@
+render item on skib v
+
+skib Goals
+
+skib Sounds: all defaults + stealing
+
+optional:
+weed item + bush

@@ -1,7 +1,8 @@
-// 1.21.8	2025-10-08T00:48:43.4595948	Loot Tables
+// 1.21.8	2025-10-14T15:17:53.3272293	Loot Tables
 73527da66ad45cd1730c45aa19af4316d10a52fa data/idos_first_mod/loot_table/blocks/bong.json
 773f54f2c1eda2af2cdfc0c17d172f780881062d data/idos_first_mod/loot_table/blocks/first_block.json
 6fb1d91da4bf80a6bd93a7d2ffaa52f402239d94 data/idos_first_mod/loot_table/blocks/first_deepslate_ore.json
 e5e6c17e623a0ffd4d58e301409c740acc9ae61c data/idos_first_mod/loot_table/blocks/first_ore.json
 48b907e2ee667a1acadcee110fb2ad2de1dc86cc data/idos_first_mod/loot_table/blocks/second_block.json
+45c87c7eab6db0927fd9e7c68756621c1275177f data/idos_first_mod/loot_table/blocks/weed_bush.json
 6f9bf778532fd07ed4f4cc24f5c8b31f09df4eab data/idos_first_mod/loot_table/blocks/wow_block.json

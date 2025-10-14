@@ -38,7 +38,7 @@ public class SkibEntity extends Animal {
     public final AnimationState headSpinAnimationState = new AnimationState();
     private int headSpinTimeout;
 
-    private final Item WEED_ITEM = Items.SEAGRASS;
+    private final Item WEED_ITEM = ModItems.WEED_NUG.asItem();
 
     public SkibEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);

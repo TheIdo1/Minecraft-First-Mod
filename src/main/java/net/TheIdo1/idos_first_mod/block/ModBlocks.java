@@ -36,6 +36,7 @@ public class ModBlocks {
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:first_ore")))
                     .requiresCorrectToolForDrops().strength(2f,6f).sound(SoundType.STONE)
     ));
+
     public static final DeferredBlock<Block> FIRST_DEEPSLATE_ORE = registerBlock("first_deepslate_ore", ()-> new DropExperienceBlock(UniformInt.of(4,7),
             BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:first_deepslate_ore")))
                     .requiresCorrectToolForDrops().strength(3f, 8f).sound(SoundType.DEEPSLATE)
@@ -53,7 +54,10 @@ public class ModBlocks {
                     .strength(2f, 2f).sound(SoundType.GLASS).noOcclusion().requiresCorrectToolForDrops()
     ));
 
-
+    public static final DeferredBlock<Block> WEED_BUSH = registerBlock("weed_bush", ()-> new WeedBushBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH).setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("idos_first_mod:weed_bush")))
+                    .sound(SoundType.SWEET_BERRY_BUSH)
+    ));
 
 
 

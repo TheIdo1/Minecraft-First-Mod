@@ -10,6 +10,8 @@ import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -27,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -34,6 +37,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
+
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 
 @EventBusSubscriber(modid = IdosFirstMod.MOD_ID)
@@ -52,6 +57,8 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
         itemModelGenerators.generateFlatItem(ModItems.FIRST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ModItems.SECOND.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.SKIB_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerators.generateFlatItem(ModItems.WEED_NUG.get(), ModelTemplates.FLAT_ITEM);
 
 
 
@@ -187,6 +194,24 @@ public class IdoModelProvider extends net.minecraft.client.data.models.ModelProv
 
 
         itemModelGenerators.itemModelOutput.accept(ModItems.BONG_ITEM.get(), bongItemComplete);
+
+
+
+        // Weed Bush
+
+
+
+        blockModelGenerators.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.dispatch(ModBlocks.WEED_BUSH.get())
+                                .with(PropertyDispatch.initial(BlockStateProperties.AGE_3).generate(
+                                        age -> plainVariant(
+                                                blockModelGenerators.createSuffixedVariant(ModBlocks.WEED_BUSH.get(), "_stage" + age, ModelTemplates.CROSS.extend().renderType("minecraft:cutout").build(), TextureMapping::cross)
+                                                        )
+                                                )
+                                )
+                );
+
 
     }
 

@@ -24,6 +24,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SECOND);
                         output.accept(ModBlocks.BONG_BLOCK);
                         output.accept(ModItems.SKIB_SPAWN_EGG);
+                        output.accept(ModItems.WEED_NUG);
                     })
                     .build());
 

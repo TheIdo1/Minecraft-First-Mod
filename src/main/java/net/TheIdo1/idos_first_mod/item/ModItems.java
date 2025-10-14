@@ -26,12 +26,17 @@ public class ModItems {
     public static final DeferredItem<Item> SECOND = ITEMS.registerItem("second",
             Item::new, new Item.Properties());
 
+
     public static final DeferredItem<BlockItem> BONG_ITEM = ITEMS.register("bong", ()-> new BongItem(
             ModBlocks.BONG_BLOCK.get(), new Item.Properties().stacksTo(1)
             .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("idos_first_mod:bong")))));
 
     public static final DeferredItem<Item> SKIB_SPAWN_EGG = ITEMS.register("skib_spawn_egg", ()-> new SpawnEggItem(ModEntities.SKIB.get(), new Item.Properties()
             .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("idos_first_mod:skib_spawn_egg")))));
+
+
+    public static final DeferredItem<Item> WEED_NUG = ITEMS.register("weed_nug", () -> new BlockItem(ModBlocks.WEED_BUSH.get(),
+            new Item.Properties().useItemDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("idos_first_mod:weed_nug")))));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
