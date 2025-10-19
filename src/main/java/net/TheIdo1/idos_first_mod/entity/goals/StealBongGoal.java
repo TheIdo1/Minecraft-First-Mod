@@ -71,7 +71,6 @@ public class StealBongGoal extends MoveToBlockGoal {
             BlockPos standPos = this.blockPos;
             Level level = skib.level();
 
-
             BlockPos bongPos = null;
             for (var dir : net.minecraft.core.Direction.Plane.HORIZONTAL) {
                 BlockPos p = standPos.relative(dir);
@@ -119,6 +118,7 @@ public class StealBongGoal extends MoveToBlockGoal {
 
             skib.getNavigation().stop();
             stealCooldown = 200;
+            skib.playStealSound();
         }
     }
 }

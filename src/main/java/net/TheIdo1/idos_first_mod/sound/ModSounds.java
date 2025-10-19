@@ -1,6 +1,5 @@
 package net.TheIdo1.idos_first_mod.sound;
 
-import com.google.common.eventbus.EventBus;
 import net.TheIdo1.idos_first_mod.IdosFirstMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +17,14 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BONG_RIP = registerSoundEvent("bong_rip");
     public static final Supplier<SoundEvent> BONG_FINISH = registerSoundEvent("bong_finish");
     public static final Supplier<SoundEvent> BONG_COUGH = registerSoundEvent("bong_cough");
+
+    public static final Supplier<SoundEvent> SKIB_AMBIENT = registerSoundEvent("skib_ambient");
+    public static final Supplier<SoundEvent> SKIB_DEATH = registerSoundEvent("skib_death");
+    public static final Supplier<SoundEvent> SKIB_HURT = registerSoundEvent("skib_hurt");
+    public static final Supplier<SoundEvent> SKIB_STEAL = registerSoundEvent("skib_steal");
+    public static final Supplier<SoundEvent> SKIB_WALK = registerSoundEvent("skib_walk");
+
+
 
 
 

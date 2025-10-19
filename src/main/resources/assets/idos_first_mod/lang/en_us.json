@@ -24,5 +24,11 @@
   "sounds.idos_first_mod.bong_cough": "coughing",
 
   "entity.idos_first_mod.skib": "Skib",
-  "item.idos_first_mod.skib_spawn_egg": "Skib Spawn Egg"
+  "item.idos_first_mod.skib_spawn_egg": "Skib Spawn Egg",
+
+  "sounds.idos_first_mod.skib_ambient": "skib ambient",
+  "sounds.idos_first_mod.skib_death": "skib death",
+  "sounds.idos_first_mod.skib_hurt": "skib hurt",
+  "sounds.idos_first_mod.skib_steal": "skib steal",
+  "sounds.idos_first_mod.skib_walk": "skib walk"
 }

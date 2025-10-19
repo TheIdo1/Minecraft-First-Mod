@@ -4,12 +4,16 @@ import net.TheIdo1.idos_first_mod.entity.ModEntities;
 import net.TheIdo1.idos_first_mod.entity.goals.*;
 import net.TheIdo1.idos_first_mod.item.BongItem;
 import net.TheIdo1.idos_first_mod.item.ModItems;
+import net.TheIdo1.idos_first_mod.sound.ModSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -23,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class SkibEntity extends Animal {
@@ -55,20 +60,20 @@ public class SkibEntity extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
 
 
-        this.goalSelector.addGoal(0, new DetectHighPlayerGoal(this, 1.5f, 20, 2));
-        this.goalSelector.addGoal(3, new StealBongGoal(this, 1.2f, 10, 2));
-        this.goalSelector.addGoal(3, new FindAndFillWaterGoal(this, 1f, 10, 2));
-        this.goalSelector.addGoal(3, new GetWeedBongGoal(this, 1f, 10, 2));
-        this.goalSelector.addGoal(3, new DumpBongWaterGoal(this));
-        this.goalSelector.addGoal(3, new UseBongGoal(this));
+        this.goalSelector.addGoal(3, new DetectHighPlayerGoal(this, 1.5f, 20, 2));
+        this.goalSelector.addGoal(4, new StealBongGoal(this, 1.2f, 10, 2));
+        this.goalSelector.addGoal(4, new FindAndFillWaterGoal(this, 1f, 10, 2));
+        this.goalSelector.addGoal(4, new GetWeedBongGoal(this, 1f, 10, 2));
+        this.goalSelector.addGoal(4, new DumpBongWaterGoal(this));
+        this.goalSelector.addGoal(4, new UseBongGoal(this));
 
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.5f, stack -> stack.is(WEED_ITEM), false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.5f, stack -> stack.is(WEED_ITEM), false));
 
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.25));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.25));
 
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
     }
 
@@ -149,4 +154,30 @@ public class SkibEntity extends Animal {
         this.entityData.set(HEAD_SPIN, v);
     }
 
+    //Sounds
+
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return ModSounds.SKIB_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SKIB_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return ModSounds.SKIB_HURT.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(ModSounds.SKIB_WALK.get(), 0.15F, 1F);
+    }
+
+    public void playStealSound(){
+        this.playSound(ModSounds.SKIB_STEAL.get(), 1F, 0.85F + (this.random.nextFloat()/2) );
+    }
 }

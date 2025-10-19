@@ -23,5 +23,40 @@
       "idos_first_mod:bong_cough1",
       "idos_first_mod:bong_cough2"
     ]
+  },
+
+  "skib_ambient": {
+    "subtitles": "sounds.idos_first_mod.skib_ambient",
+    "sounds": [
+      "idos_first_mod:skib_ambient"
+    ]
+  },
+
+  "skib_death": {
+    "subtitles": "sounds.idos_first_mod.skib_death",
+    "sounds": [
+      "idos_first_mod:skib_death"
+    ]
+  },
+
+  "skib_hurt": {
+    "subtitles": "sounds.idos_first_mod.skib_hurt",
+    "sounds": [
+      "idos_first_mod:skib_hurt"
+    ]
+  },
+
+  "skib_steal": {
+    "subtitles": "sounds.idos_first_mod.skib_steal",
+    "sounds": [
+      "idos_first_mod:skib_steal"
+    ]
+  },
+
+  "skib_walk": {
+    "subtitles": "sounds.idos_first_mod.skib_walk",
+    "sounds": [
+      "idos_first_mod:skib_walk"
+    ]
   }
 }
