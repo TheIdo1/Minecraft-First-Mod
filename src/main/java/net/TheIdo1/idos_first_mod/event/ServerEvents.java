@@ -94,10 +94,6 @@ public class ServerEvents {
                 SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
-    @SubscribeEvent
-    public static void registerAttributes(EntityAttributeCreationEvent event){
-        event.put(ModEntities.SKIB.get(), SkibEntity.createAttributes().build());
-    }
 
 
 

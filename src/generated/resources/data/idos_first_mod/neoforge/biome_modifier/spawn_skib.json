@@ -1,0 +1,15 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:plains",
+    "minecraft:flower_forest",
+    "minecraft:sunflower_plains"
+  ],
+  "spawners": {
+    "type": "idos_first_mod:skib",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 20
+  }
+}

@@ -7,6 +7,9 @@ steal bong v
 get weed to bong v
 detect high player v
 
+
+world gen (bush, skibs) v
+
 optional:
 weed item + bush v
 
