@@ -2,6 +2,7 @@ package net.TheIdo1.idos_first_mod.block;
 
 import com.google.gson.Gson;
 import com.mojang.serialization.MapCodec;
+import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -122,7 +123,7 @@ public class BongBlock extends HorizontalDirectionalBlock implements LiquidBlock
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
-        if(stack.getItem() == Items.SEAGRASS && !state.getValue(HAS_STINKY)){
+        if(stack.getItem() == ModItems.WEED_NUG.get() && !state.getValue(HAS_STINKY)){
             if(!level.isClientSide()){
                 BlockState newBlockstate = state.setValue(HAS_STINKY, true);
                 level.setBlock(pos, newBlockstate, UPDATE_ALL);
@@ -269,5 +270,15 @@ public class BongBlock extends HorizontalDirectionalBlock implements LiquidBlock
         WaterState(String name) { this.name = name; }
         @Override public String getSerializedName() { return name; }
         @Override public String toString() { return name; }
+
+        public static @org.jetbrains.annotations.Nullable WaterState fromSerialized(String s) {
+            if (s == null) return null;
+            for (WaterState ws : values()) {
+                if (ws.getSerializedName().equalsIgnoreCase(s) || ws.name().equalsIgnoreCase(s)) {
+                    return ws;
+                }
+            }
+            return null;
+        }
     }
 }

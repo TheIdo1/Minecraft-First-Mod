@@ -1,7 +1,7 @@
 package net.TheIdo1.idos_first_mod.entity.custom;
 
 import net.TheIdo1.idos_first_mod.entity.ModEntities;
-import net.TheIdo1.idos_first_mod.entity.goals.UseBongGoal;
+import net.TheIdo1.idos_first_mod.entity.goals.*;
 import net.TheIdo1.idos_first_mod.item.BongItem;
 import net.TheIdo1.idos_first_mod.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,6 +36,8 @@ public class SkibEntity extends Animal {
     private int bongUseTimeout;
 
     public final AnimationState headSpinAnimationState = new AnimationState();
+    private static final EntityDataAccessor<Boolean> HEAD_SPIN =
+            SynchedEntityData.defineId(SkibEntity.class, EntityDataSerializers.BOOLEAN);
     private int headSpinTimeout;
 
     private final Item WEED_ITEM = ModItems.WEED_NUG.asItem();
@@ -49,17 +51,24 @@ public class SkibEntity extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.75f, stack -> stack.is(WEED_ITEM), false));
 
-        this.goalSelector.addGoal(4, new UseBongGoal(this));
 
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
+        this.goalSelector.addGoal(0, new DetectHighPlayerGoal(this, 1.5f, 20, 2));
+        this.goalSelector.addGoal(3, new StealBongGoal(this, 1.2f, 10, 2));
+        this.goalSelector.addGoal(3, new FindAndFillWaterGoal(this, 1f, 10, 2));
+        this.goalSelector.addGoal(3, new GetWeedBongGoal(this, 1f, 10, 2));
+        this.goalSelector.addGoal(3, new DumpBongWaterGoal(this));
+        this.goalSelector.addGoal(3, new UseBongGoal(this));
 
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.5f, stack -> stack.is(WEED_ITEM), false));
+
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.25));
+
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 
     }
 
@@ -90,7 +99,7 @@ public class SkibEntity extends Animal {
         }
 
         if(this.headSpinTimeout <=0){
-            if(this.isBaby()){
+            if(this.isBaby() || this.isHeadSpinning()){
                 this.headSpinTimeout = 70;
                 this.headSpinAnimationState.start(this.tickCount);
             }
@@ -122,6 +131,7 @@ public class SkibEntity extends Animal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(USING_BONG, false);
+        builder.define(HEAD_SPIN, false);
     }
 
     public boolean isUsingBong() {
@@ -130,6 +140,13 @@ public class SkibEntity extends Animal {
 
     public void setUsingBong(boolean v) {
         this.entityData.set(USING_BONG, v);
+    }
+
+    public boolean isHeadSpinning() {
+        return this.entityData.get(HEAD_SPIN);
+    }
+    public void setHeadSpinning(boolean v) {
+        this.entityData.set(HEAD_SPIN, v);
     }
 
 }

@@ -2,11 +2,14 @@ render item on skib v
 
 skib Goals:
 use bong v
-steal bong
-clean bong
-get weed to bong
-
-skib Sounds: all defaults + stealing
+clean bong v
+steal bong v
+get weed to bong v
+detect high player v
 
 optional:
 weed item + bush v
+
+skib Sounds: all defaults + stealing
+
+JEI Compatibility

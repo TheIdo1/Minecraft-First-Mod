@@ -1,5 +1,6 @@
 package net.TheIdo1.idos_first_mod.item;
 
+import net.TheIdo1.idos_first_mod.block.BongBlock;
 import net.TheIdo1.idos_first_mod.block.ModBlocks;
 import net.TheIdo1.idos_first_mod.effect.ModEffects;
 import net.TheIdo1.idos_first_mod.sound.ModSounds;
@@ -9,7 +10,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,7 +28,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,16 +88,6 @@ public class BongItem extends BlockItem {
             }
         }
         return super.use(level, player, hand);
-    }
-
-    public static boolean canUseBong(ItemStack stack){
-        if (!stack.is(ModItems.BONG_ITEM.get())){
-            return false;
-        }
-        BlockItemStateProperties props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
-        String water = props.properties().get("water");
-        boolean hasStinky = "true".equals(props.properties().get("has_stinky"));
-        return ("clean".equals(water) && hasStinky);
     }
 
     @Override
@@ -178,26 +170,31 @@ public class BongItem extends BlockItem {
         if ("empty".equals(water) && (waterAtPlace || waterAtHit)) {
             if (!level.isClientSide) {
                 map.put("water", "clean");
+                level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 1.0F);
                 stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
             }
             return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
 
-        if (target.is(ModBlocks.WEED_BUSH.get()) && (target.getValue(BlockStateProperties.AGE_3)==1) || (target.getValue(BlockStateProperties.AGE_3)==2)) {
-            if (!"true".equals(hasStinky)) {
-                if (!level.isClientSide) {
+        if (target.is(ModBlocks.WEED_BUSH.get())) {
+            if ((target.getValue(BlockStateProperties.AGE_3) == 1) || (target.getValue(BlockStateProperties.AGE_3) == 2)) {
 
-                    map.put("has_stinky", "true");
-                    stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
+                if (!"true".equals(hasStinky)) {
+                    if (!level.isClientSide) {
 
-                    if (target.getValue(BlockStateProperties.AGE_3)==1){
-                    level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 0), 3);
-                    } else if (target.getValue(BlockStateProperties.AGE_3)==2) {
-                    level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 1), 3);
+                        map.put("has_stinky", "true");
+                        stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(map));
+
+                        if (target.getValue(BlockStateProperties.AGE_3) == 1) {
+                            level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 0), 3);
+                        } else if (target.getValue(BlockStateProperties.AGE_3) == 2) {
+                            level.setBlock(pos, target.setValue(BlockStateProperties.AGE_3, 1), 3);
+                        }
                     }
+                    return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
                 }
-                return level.isClientSide ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             }
         }
 
@@ -214,13 +211,13 @@ public class BongItem extends BlockItem {
     @Override
     public int getBarWidth(ItemStack stack) {
         // רוחב הפס: 0 (ריק) או מלא (13) בהתאם ל-has_stinky
-        return hasStinky(stack) ? 13 : 0;
+        return getStinkyState(stack) ? 13 : 0;
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
         // צבע הפס: ירוק כשיש stinky, אפור כשאין (שנה לפי הטעם)
-        return hasStinky(stack) ? 0x55FF55 : 0x555555;
+        return getStinkyState(stack) ? 0x55FF55 : 0x555555;
     }
 
 
@@ -228,6 +225,82 @@ public class BongItem extends BlockItem {
 
 
     //helpers
+
+
+    public static boolean canUseBong(ItemStack stack){
+        if (!stack.is(ModItems.BONG_ITEM.get())){
+            return false;
+        }
+        BlockItemStateProperties props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
+        String water = props.properties().get("water");
+        boolean hasStinky = "true".equals(props.properties().get("has_stinky"));
+        return ("clean".equals(water) && hasStinky);
+    }
+
+    /**
+     * expected BongItem ItemStack, will return false otherwise.
+     * @param stack of a bong item.
+     * @return true if it has stinky, false else
+     */
+    public static boolean getStinkyState(ItemStack stack) {
+        if (!(stack.getItem() instanceof BongItem)) {
+            return false;
+        }
+
+        BlockItemStateProperties props = stack.getOrDefault(
+                DataComponents.BLOCK_STATE,
+                BlockItemStateProperties.EMPTY
+        );
+
+        String value = props.properties().get("has_stinky");
+        return value != null && value.equalsIgnoreCase("true");
+    }
+
+
+
+    /**
+     *
+     * @param stack bong item
+     * @return WaterState, returns Null if not bong item
+     */
+    @Nullable
+    public static BongBlock.WaterState getWaterState(ItemStack stack){
+        if(stack.getItem() instanceof BongItem bongItem){
+            BlockItemStateProperties props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
+            return BongBlock.WaterState.fromSerialized(props.properties().get("water"));
+        }
+        return null;
+    }
+
+
+    public static void setStinkyState(ItemStack stack, boolean bool){
+        if(stack.getItem() instanceof BongItem bongItem){
+            String sbool = bool ? "true" : "false";
+
+            BongBlock.WaterState state = getWaterState(stack);
+
+            Map< String, String> newMap = Map.of(
+                    "has_stinky", sbool,
+                    "water", state.getSerializedName()
+            );
+            stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(newMap));
+        }
+    }
+
+
+    public static void setWaterState(ItemStack stack, BongBlock.WaterState state){
+        if(stack.getItem() instanceof BongItem bongItem){
+            boolean bool = getStinkyState(stack);
+            String sbool = bool ? "true" : "false";
+
+            Map< String, String> newMap = Map.of(
+                    "water", state.getSerializedName(),
+                    "has_stinky", sbool
+            );
+            stack.set(DataComponents.BLOCK_STATE, new BlockItemStateProperties(newMap));
+        }
+    }
+
 
     public static void exhaleParicles(Level level, LivingEntity entity, int durationTicks) {
         if (!(level instanceof ServerLevel s)) return; // שרת בלבד
@@ -253,9 +326,4 @@ public class BongItem extends BlockItem {
         s.addFreshEntity(cloud);
     }
 
-
-    private static boolean hasStinky(ItemStack stack) {
-        var props = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY);
-        return "true".equalsIgnoreCase(props.properties().getOrDefault("has_stinky", "false"));
-    }
 }
