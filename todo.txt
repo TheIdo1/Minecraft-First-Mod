@@ -14,5 +14,3 @@ optional:
 weed item + bush v
 
 skib Sounds: all defaults + stealing
-
-JEI Compatibility
