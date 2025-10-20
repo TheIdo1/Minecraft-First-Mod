@@ -174,7 +174,7 @@ public class SkibEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(ModSounds.SKIB_WALK.get(), 0.15F, 1F);
+        this.playSound(ModSounds.SKIB_WALK.get(), 0.05F, 1F);
     }
 
     public void playStealSound(){
