@@ -31,6 +31,5 @@ even if this mod will be finished, maybe this readme file will not be updated.
 
 it was a fun project.
 
-skibidi toilet sigma rizz.
-
-![mod cover](https://github.com/TheIdo1/Minecraft-First-Mod/blob/main/thumbnail.png)
+i made a video but it is in the process of being edited,
+imagine epic demonstration of my skills here :).
