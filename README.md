@@ -2,6 +2,14 @@
 
 A small Minecraft mod for **1.21.8** built with **[NeoForge](https://neoforged.net/)**.
 
+## Video Showcase
+
+<p align="center">
+  <a href="https://youtu.be/140j56cDwiA" target="_blank">
+    <img src="https://img.youtube.com/vi/140j56cDwiA/maxresdefault.jpg" width="500" alt="Watch the video">
+  </a>
+</p>
+
 ## Requirements
 - Minecraft **1.21.8**
 - NeoForge **21.8.x** ([Download Here](https://maven.neoforged.net/releases/net/neoforged/neoforge/21.8.46/neoforge-21.8.46-installer.jar))
