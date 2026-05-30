@@ -38,6 +38,3 @@ even if this mod will be finished, maybe this readme file will not be updated.
 *edit, the readme was updated, but now summer break is over and im going back to do real stuff.
 
 it was a fun project.
-
-i made a video but it is in the process of being edited,
-imagine epic demonstration of my skills here :).
